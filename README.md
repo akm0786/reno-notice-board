@@ -1,40 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Reno Notice Board
 
-## Getting Started
+A notice board with full CRUD, built for the Reno Platforms web-dev assignment.
 
-First, run the development server:
+**Stack:** Next.js 14 (Pages Router) · TypeScript · Prisma · Supabase Postgres · Tailwind CSS · Vercel.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Live demo
+- App: <your-vercel-url>
+- Repo: <your-github-url>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
+- Create, read, update, delete notices.
+- Server-side validation with Zod inside `pages/api/` routes.
+- Urgent-first ordering done in the database via Prisma `orderBy`.
+- Red "Urgent" badge and left border on urgent cards.
+- Delete confirmation modal.
+- Responsive card grid (1/2/3 columns).
+- Optional image via URL.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Run locally
+1. `git clone <repo> && cd reno-notice-board`
+2. `npm install`
+3. Copy `.env.example` to `.env` and fill in your Postgres URLs:
+   - `DATABASE_URL` — Supabase transaction pooler (port 6543, append `?pgbouncer=true&connection_limit=1`)
+   - `DIRECT_URL` — Supabase direct connection (port 5432)
+4. `npx prisma migrate dev`
+5. `npm run dev` → http://localhost:3000
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## API
+| Method | Path | Purpose |
+|---|---|---|
+| GET | `/api/notices` | List notices, urgent-first |
+| POST | `/api/notices` | Create (201) |
+| GET | `/api/notices/[id]` | Fetch one (404 if missing) |
+| PUT | `/api/notices/[id]` | Update (400 on invalid input) |
+| DELETE | `/api/notices/[id]` | Delete (204) |
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## One thing I'd improve with more time
+Real image uploads via Supabase Storage (with size/type limits and a signed-URL flow) instead of a plain URL field, plus optimistic UI on create/edit/delete so the list updates without a round-trip.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## AI usage
+I used Lovable (Claude) to draft the plan, the Prisma schema, the API route handlers with Zod validation, the React components (list, form, confirm modal) and this README. I reviewed every file, wired up the Supabase URLs, ran the migration, tested CRUD locally, adjusted styling, and deployed manually to Vercel.
