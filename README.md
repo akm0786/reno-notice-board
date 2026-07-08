@@ -2,11 +2,12 @@
 
 A notice board with full CRUD, built for the Reno Platforms web-dev assignment.
 
-**Stack:** Next.js 14 (Pages Router) · TypeScript · Prisma · Supabase Postgres · Tailwind CSS · Vercel.
+**Stack:** Next.js 16 (Pages Router) · TypeScript · Prisma · Supabase Postgres · Tailwind CSS · Vercel.
 
 ## Live demo
-- App: [<Reno Notice Board>](https://reno-notice-board-pi.vercel.app/)
-- Repo: [<Github Repo->](https://github.com/akm0786/reno-notice-board)
+
+- App: [Reno Notice Board](https://reno-notice-board-pi.vercel.app/)
+- Repo: [GitHub Repo](https://github.com/akm0786/reno-notice-board)
 
 ## Features
 - Create, read, update, delete notices.
